@@ -7,7 +7,7 @@ import {fromLonLat} from 'ol/proj';
 
 class wut extends React.Component {
     
-    componentDidMount() {
+    componentDidMount(props) {
    
         new Map({
             target: 'map-container',
@@ -23,9 +23,10 @@ class wut extends React.Component {
             zoom: 4
             })
         });
+
     };
 
-    render() {
+    render(props) {
     return (
             <h3> map = works</h3>
     )}
