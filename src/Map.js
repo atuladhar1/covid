@@ -27,9 +27,8 @@ class wut extends React.Component {
     };
 
     render(props) {
-    return (
-            <h3> map = works</h3>
-    )}
+    return (null)
+    }
 }
 
 export default wut
