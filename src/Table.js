@@ -30,7 +30,7 @@ class Table extends React.Component{
                 <td>{x[4]}</td>
             </tr>
         </tbody>))
-    
+    // Return the table with the all the data from the api. onClick function passes the an int based on its position in the array to make sorting data easier.
     return (<table>
         <thead>
         <tr><th onClick= {this.handleClick.bind(this,0)} value ="1" >Country Name</th>
