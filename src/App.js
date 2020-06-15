@@ -7,7 +7,7 @@ class App extends React.Component{
 
   constructor(){
     super()
-    this.state={initialized: false, countryData:[]}
+    this.state={initialized: false, countryData:[], recov: false, dead : false,  infect:false}
   }
 
 // API call from source and save it in the state as an array for easies data sorting.
@@ -16,23 +16,20 @@ class App extends React.Component{
     .then(response => response.json())
     .then(data=> {
 
-      let final=[[
-        "Countries",
-        "Confirmed",
-        "Deaths",
-        "Recovered"]]
-
+      let final=[]
+// sort(function(x,y){return x[1]-y[1]});
       const Countries = data.Countries
       for (let country in Countries)
           final.push(
-            [Countries[country].Country, 
+            [
+            country,
+            Countries[country].Country, 
             Countries[country].TotalConfirmed, 
             Countries[country].TotalDeaths,
             Countries[country].TotalRecovered])
       this.setState({initialized: true, countryData: final})
     })
   }
-
 /*TODOs:
     Map the heatmap to countries
     Create a table do display the data
@@ -42,10 +39,9 @@ class App extends React.Component{
   render(){
     if (this.state.initialized)
     {
-      console.log(this.state)
       return (
         <div>
-          <Table/>
+          <Table data = {this.state.countryData}/>
           <div id = "map-container" style = {{height: 200, width : 200}}></div>
           <Map/>
         </div>
