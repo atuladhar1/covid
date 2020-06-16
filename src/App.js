@@ -1,6 +1,6 @@
 import React from 'react';
 import './App.css';
-import Map from "./Map"
+import Map from "./MapCompoment/Map"
 import Table from "./Table"
 
 class App extends React.Component{
@@ -17,7 +17,6 @@ class App extends React.Component{
     .then(data=> {
 
       let final=[]
-// sort(function(x,y){return x[1]-y[1]});
       const Countries = data.Countries
       for (let country in Countries)
           final.push(
@@ -41,8 +40,7 @@ class App extends React.Component{
     {
       return (
         <div>
-          <Table data = {this.state.countryData}/>
-          <div id = "map-container" style = {{height: 200, width : 200}}></div>
+          <div id = "map-container" style = {{height: 1000, width : 1200}}></div>
           <Map/>
         </div>
       )
@@ -52,5 +50,6 @@ class App extends React.Component{
     }
     }
 }
+// <Table data = {this.state.countryData}/>
 
 export default App;
