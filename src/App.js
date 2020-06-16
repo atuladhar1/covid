@@ -40,7 +40,7 @@ class App extends React.Component{
     {
       return (
         <div>
-          <div id = "map-container" style = {{height: 1000, width : 1200}}></div>
+          <div id = "map-container" style = {{height: 500, width : 1000}}></div>
           <Map/>
         </div>
       )
