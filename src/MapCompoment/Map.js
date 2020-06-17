@@ -8,20 +8,36 @@ import View from 'ol/View'
 import {Style, Fill, Stroke} from 'ol/style';
 
 class wut extends React.Component {
+  constructor(props){
+    super()
+    this.state = {data:props.data}
+    console.log(this.state.data[1][5])
+  }
+  newStyle = new Style({
+    fill: new Fill({
+      color: "blue"
+    })
+  }) 
+  newStyle2 = new Style({
+    fill: new Fill({
+      color: "white"
+    })
+  })
   componentDidMount(){
-    let map = new Map({
+    new Map({
       target: 'map-container',
       layers: [
         new VectorLayer({
           source: new VectorSource({
             format: new GeoJSON(),
-            url: require("./map.geojson")
+            url: require("./countries.geojson")
           }),
-          style: new Style ({
-            fill: new Fill({
-              color: "grey"
-            })
-          }),
+          style: (feature)=>{
+            if (this.state.data[5].includes(feature.id_ ))
+              return this.newStyle
+            else
+              return this.newStyle2
+          },
           stroke: new Stroke({
             color: "red"
           })

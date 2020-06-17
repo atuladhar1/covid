@@ -25,7 +25,9 @@ class App extends React.Component{
             Countries[country].Country, 
             Countries[country].TotalConfirmed, 
             Countries[country].TotalDeaths,
-            Countries[country].TotalRecovered])
+            Countries[country].TotalRecovered,
+            Countries[country].CountryCode],
+            )
       this.setState({initialized: true, countryData: final})
     })
   }
@@ -40,8 +42,8 @@ class App extends React.Component{
     {
       return (
         <div>
-          <div id = "map-container" style = {{height: 500, width : 1000}}></div>
-          <Map/>
+          <div id = "map-container" style = {{height: 0, width : 0}}></div>
+          <Table data = {this.state.countryData}/>
         </div>
       )
     }
@@ -50,6 +52,7 @@ class App extends React.Component{
     }
     }
 }
+//  <Map data = {this.state.countryData}/>
 // <Table data = {this.state.countryData}/>
 
 export default App;
