@@ -7,7 +7,7 @@ class App extends React.Component{
 
   constructor(){
     super()
-    this.state={initialized: false, countryData:[], recov: false, dead : false,  infect:false}
+    this.state={initialized: false, countryData:{}, recov: false, dead : false,  infect:false}
   }
 
 // API call from source and save it in the state as an array for easies data sorting.
@@ -15,19 +15,16 @@ class App extends React.Component{
     fetch("https://api.covid19api.com/summary")
     .then(response => response.json())
     .then(data=> {
-
-      let final=[]
       const Countries = data.Countries
-      for (let country in Countries)
-          final.push(
-            [
-            country,
-            Countries[country].Country, 
-            Countries[country].TotalConfirmed, 
-            Countries[country].TotalDeaths,
-            Countries[country].TotalRecovered,
-            Countries[country].CountryCode],
-            )
+      let final = Countries.map((country) =>
+      {
+          return{
+            country : country.Country, 
+            confirmed : country.TotalConfirmed, 
+            deaths: country.TotalDeaths,
+            recovered: country.TotalRecovered,
+            cCode: country.CountryCode}
+          })
       this.setState({initialized: true, countryData: final})
     })
   }

@@ -3,7 +3,7 @@ import React from "react"
 class Table extends React.Component{
     constructor(props){
         super()
-        this.state = {data:props.data, 0: true, sortedBy:0 }
+        this.state = {data:props.data, 0: true, sortedBy: "country" }
         this.handleClick= this.handleClick.bind(this)
     }
 
@@ -11,39 +11,39 @@ class Table extends React.Component{
     handleClick(a){
         this.setState(prevState=>{
             let b = prevState.data
-            
+
             if(prevState.sortedBy===a)
-                {b.sort((x,y)=> y[a]-x[a])
+                {
+                    b.sort((x,y)=> y[a]-x[a])
+                    console.log(a, prevState.sortedBy)
                 }
             else
-                {b.sort((x,y)=> x[a]-y[a])
-                    console.log(prevState.sortedBy, a)}
+                b.sort((x,y)=> x[a]-y[a])
             return {data: b, sortedBy: a}
         })
     }
     
     render (){
     const countryData = this.state.data
-    console.log(countryData)
-    const a = countryData.map(x =>
+    const a = countryData.map((country) =>
         {
             return (
-            <tbody key = {x[0]}>
+            <tbody key = {country.cCode}>
             <tr>
-                <td>{x[1]}</td>
-                <td>{x[2]}</td>
-                <td>{x[3]}</td>
-                <td>{x[4]}</td>
+                <td>{country.country}</td>
+                <td>{country.confirmed}</td>
+                <td>{country.deaths}</td>
+                <td>{country.recovered}</td>
             </tr>
         </tbody>)
     })
     // Return the table with the all the data from the api. onMouseUp function passes the an int based on its position in the array to make sorting data easier.
     return (<table>
         <thead>
-        <tr><th onMouseUp= {this.handleClick.bind(this,"0")} value ="1" >Country Name</th>
-        <th onMouseUp= {this.handleClick.bind(this,"2")}>Comfirmed</th>
-        <th onMouseUp= {this.handleClick.bind(this,"3")}>Deaths</th>
-        <th onMouseUp= {this.handleClick.bind(this,"4")}>Recovered</th></tr></thead>
+        <tr><th onMouseUp= {this.handleClick.bind(this,"country")} value ="1" >Country Name</th>
+        <th onMouseUp= {this.handleClick.bind(this,"confirmed")}>Comfirmed</th>
+        <th onMouseUp= {this.handleClick.bind(this,"deaths")}>Deaths</th>
+        <th onMouseUp= {this.handleClick.bind(this,"recovered")}>Recovered</th></tr></thead>
         {a}
         </table>)
 }}
