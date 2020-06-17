@@ -39,8 +39,8 @@ class App extends React.Component{
     {
       return (
         <div>
-          <div id = "map-container" style = {{height: 0, width : 0}}></div>
-          <Table data = {this.state.countryData}/>
+          <div id = "map-container" style = {{height: 1000, width : 1000}}></div>
+          <Map data = {this.state.countryData}/>
         </div>
       )
     }

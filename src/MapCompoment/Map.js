@@ -11,7 +11,6 @@ class wut extends React.Component {
   constructor(props){
     super()
     this.state = {data:props.data}
-    console.log(this.state.data[1][5])
   }
   newStyle = new Style({
     fill: new Fill({
@@ -20,7 +19,7 @@ class wut extends React.Component {
   }) 
   newStyle2 = new Style({
     fill: new Fill({
-      color: "white"
+      color: "black"
     })
   })
   componentDidMount(){
@@ -30,13 +29,13 @@ class wut extends React.Component {
         new VectorLayer({
           source: new VectorSource({
             format: new GeoJSON(),
-            url: require("./countries.geojson")
+            url: require("./map.geojson")
           }),
           style: (feature)=>{
-            if (this.state.data[5].includes(feature.id_ ))
+            if(this.state.data.find(country=> country.cCode === feature.get("iso_a2") ))
               return this.newStyle
-            else
-              return this.newStyle2
+            console.log(feature.get("iso_a2"))
+            return this.newStyle2
           },
           stroke: new Stroke({
             color: "red"
