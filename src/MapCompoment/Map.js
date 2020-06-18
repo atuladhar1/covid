@@ -13,21 +13,39 @@ class wut extends React.Component {
     super()
     this.state = {data:props.data}
   }
+// TODO write a function to return color in a range of certain colors
+getColor= (num)=>{
+  if (num<100)
+    return "#19bd35"
+  else if (num< 5000)
+    return "#bbbd19"
+  else if( num < 10000)
+    return "#bd4219"
+  else 
+    return "#df430f"
+}
 // function to return data from the api called previously
 findCountry = (key) =>{
-  var a= -1
+  var temp= -1
   this.state.data.find(country=> {if (country.cCode === key)
-    a=country.deaths
+    temp=country.deaths
   } )
-  console.log(a)
-  return a
+  return temp
 } 
 // Style function to set color to each country based on the number of deaths, recovered, or infected people.
 newStyle = (feature) =>{
-  var found = (this.findCountry(feature.get("iso_a2"))>-1) ? "blue": "black"
+  var found = this.findCountry(feature.get("iso_a2"))
+  var Color = "grey";
+  if (found > -1)
+  {
+    Color= this.getColor(found)
+  }
   return new Style({
       fill: new Fill({
-        color: found
+        color: Color
+      }),
+      stroke: new Stroke({
+        color: 'rgba(255,255,255,0.8)'
       })
     })
 }
