@@ -8,20 +8,30 @@ import View from 'ol/View'
 import {Style, Fill, Stroke} from 'ol/style';
 
 class wut extends React.Component {
+// Constructor
   constructor(props){
     super()
     this.state = {data:props.data}
   }
-  newStyle = new Style({
-    fill: new Fill({
-      color: "blue"
+// function to return data from the api called previously
+findCountry = (key) =>{
+  var a= -1
+  this.state.data.find(country=> {if (country.cCode === key)
+    a=country.deaths
+  } )
+  console.log(a)
+  return a
+} 
+// Style function to set color to each country based on the number of deaths, recovered, or infected people.
+newStyle = (feature) =>{
+  var found = (this.findCountry(feature.get("iso_a2"))>-1) ? "blue": "black"
+  return new Style({
+      fill: new Fill({
+        color: found
+      })
     })
-  }) 
-  newStyle2 = new Style({
-    fill: new Fill({
-      color: "black"
-    })
-  })
+}
+// Load map and the required information
   componentDidMount(){
     new Map({
       target: 'map-container',
@@ -32,14 +42,8 @@ class wut extends React.Component {
             url: require("./map.geojson")
           }),
           style: (feature)=>{
-            if(this.state.data.find(country=> country.cCode === feature.get("iso_a2") ))
-              return this.newStyle
-            console.log(feature.get("iso_a2"))
-            return this.newStyle2
-          },
-          stroke: new Stroke({
-            color: "red"
-          })
+            return this.newStyle(feature)
+          }
         })
       ],
       view: new View({
@@ -48,10 +52,9 @@ class wut extends React.Component {
       })
     });
     }
-
-
-    render(props) {
-    return (<h1>? ?</h1>)
+// Required method
+  render() {
+    return (<div></div>)
     }
 }
 

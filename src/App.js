@@ -23,9 +23,10 @@ class App extends React.Component{
             confirmed : country.TotalConfirmed, 
             deaths: country.TotalDeaths,
             recovered: country.TotalRecovered,
-            cCode: country.CountryCode}
+            cCode: country.CountryCode,
+          }
           })
-      this.setState({initialized: true, countryData: final})
+      this.setState({initialized: true, countryData: final, display:"confirmed"})
     })
   }
 /*TODOs:
