@@ -19,9 +19,11 @@ class App extends React.Component{
     .then(response => response.json())
     .then(data=> {
       const Countries = data.Countries
+      var counter=0;
       let final = Countries.map((country) =>
       {
           return{
+            count: counter++,
             country : country.Country, 
             confirmed : country.TotalConfirmed, 
             deaths: country.TotalDeaths,
@@ -44,6 +46,7 @@ class App extends React.Component{
         <button className="button" onClick={this.handleClick.bind(this,"deaths")}>Deaths</button>
         <button className="button" onClick={this.handleClick.bind(this,"confirmed")}>Confirmed</button>
         </div>
+          <Table data = {this.state.countryData}/>
           <Map data = {this.state.countryData} display ={this.state.display}/>
         </div>
       )
