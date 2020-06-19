@@ -1,0 +1,20 @@
+#content-Container{
+    display: flex;
+    margin: 0;
+    max-height:100vh;
+    width: 100w;
+}
+
+#content-Container::-webkit-scrollbar {
+    display: none;
+  }
+
+#button-container{
+    margin: 0;
+    text-align: center;
+    background: white;
+}
+
+.button{
+    margin: 0 20px;
+}

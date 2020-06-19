@@ -1,4 +1,5 @@
 import React from "react"
+import './Table.css';
 
 class Table extends React.Component{
     constructor(props){
@@ -28,24 +29,27 @@ class Table extends React.Component{
     const data = countryData.map((country) =>
         {
             return (
-            <tbody key = {country.cCode}>
-            <tr>
+ 
+            <tr  key = {country.cCode}>
                 <td>{country.country}</td>
                 <td>{country.confirmed}</td>
                 <td>{country.deaths}</td>
                 <td>{country.recovered}</td>
             </tr>
-        </tbody>)
+)
     })
     // Return the table with the all the data from the api. onMouseUp function passes the an int based on its position in the array to make sorting data easier.
-    return (<table>
-        <thead>
+    return (<div><table id = "table">
+        <thead id ="head">
         <tr><th onMouseUp= {this.handleClick.bind(this,"count")} value ="1" >Country Name</th>
         <th onMouseUp= {this.handleClick.bind(this,"confirmed")}>Comfirmed</th>
         <th onMouseUp= {this.handleClick.bind(this,"deaths")}>Deaths</th>
         <th onMouseUp= {this.handleClick.bind(this,"recovered")}>Recovered</th></tr></thead>
+        <tbody id= "body">
         {data}
-        </table>)
+        </tbody>
+        </table>
+        </div>)
 }}
 
 export default Table

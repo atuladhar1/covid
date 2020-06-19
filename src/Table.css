@@ -1,0 +1,27 @@
+#table {
+    margin : 0;
+    display: block;
+    max-height: 98vh;
+    overflow: scroll;
+    overflow-x: hidden;
+    border-collapse: collapse;
+    -ms-overflow-style: none;
+}
+#head th{
+    color: rgb(32, 26, 26);
+    position: sticky;
+    top: 0;
+    background-color: #5db4eb ;
+    border: 1px solid #366583;
+    font-size: 18px;
+}
+
+td{
+    font-size: 17px;
+    border: 1px solid #29815f;
+    background-color: #0b915d;
+    font-family:'Roboto Mono', monospace; ;
+}
+#tbody::-webkit-scrollbar {
+    display: none;
+  }

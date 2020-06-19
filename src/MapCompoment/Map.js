@@ -6,6 +6,7 @@ import VectorLayer from 'ol/layer/Vector'
 import VectorSource from 'ol/source/Vector'
 import View from 'ol/View'
 import {Style, Fill, Stroke} from 'ol/style';
+import "./Map.css"
 
 class Maperino extends React.Component {
 
@@ -79,7 +80,7 @@ componentDidMount(){
             color: Color
           }),
           stroke: new Stroke({
-            color: 'rgba(255,255,255,0.8)'
+            color: '#424651'
           })
         })
     }
@@ -138,7 +139,7 @@ constructor(props){
 }
 // Required method that generated a container for the map
   render() {
-    return <div id = "map-container" style = {{height: 1000, width : 1000}}></div>
+    return <div id = "map-container"></div>
     }
 }
 

@@ -35,19 +35,23 @@ class App extends React.Component{
     })
   }
 
-// Every function is called here. Map-container created as a container for the map to be displayed. Everything else is just calls.
+// Every function is called here.
   render(){
     if (this.state.initialized)
     {
       return (
-        <div>
-        <div id= "button-container">
-        <button className="button" onClick={this.handleClick.bind(this,"recovered")}>Recoveries</button>
-        <button className="button" onClick={this.handleClick.bind(this,"deaths")}>Deaths</button>
-        <button className="button" onClick={this.handleClick.bind(this,"confirmed")}>Confirmed</button>
-        </div>
-          <Table data = {this.state.countryData}/>
-          <Map data = {this.state.countryData} display ={this.state.display}/>
+        <div id = "Container">
+          <div id= "button-container">
+            <label className="button" onClick={this.handleClick.bind(this,"recovered")}>Recoveries</label>
+            <label className="button" onClick={this.handleClick.bind(this,"deaths")}>Deaths</label>
+            <label className="button" onClick={this.handleClick.bind(this,"confirmed")}>Confirmed</label>
+          </div>
+          <div id = "content-Container">
+            
+            <Map data = {this.state.countryData} display ={this.state.display}/>
+            <Table data = {this.state.countryData}/>
+            
+          </div>
         </div>
       )
     }
@@ -56,7 +60,5 @@ class App extends React.Component{
     }
     }
 }
-//  <Map data = {this.state.countryData}/>
-// <Table data = {this.state.countryData}/>
-
 export default App;
+// <Table data = {this.state.countryData}/>

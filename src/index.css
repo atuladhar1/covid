@@ -1,4 +1,8 @@
+*{
+    margin:0;
+}
 body{
-    margin: 0;
-    background-color: rgb(126, 117, 117)
+    overflow-y: hidden;
+    background-color: rgba(179, 187, 187, 0.801);
+    font-family: 'Suez One', serif;
 }
