@@ -7,73 +7,139 @@ import VectorSource from 'ol/source/Vector'
 import View from 'ol/View'
 import {Style, Fill, Stroke} from 'ol/style';
 
-class wut extends React.Component {
-// Constructor
-  constructor(props){
-    super()
-    this.state = {data:props.data}
-  }
-// TODO write a function to return color in a range of certain colors
+class Maperino extends React.Component {
+
+// A manual function that assigns the color based on the information requested and the number passed in
 getColor= (num)=>{
-  if (num<100)
-    return "#19bd35"
-  else if (num< 5000)
-    return "#bbbd19"
-  else if( num < 10000)
-    return "#bd4219"
-  else 
-    return "#df430f"
+  if (this.state.display ==="deaths")
+  {  
+    if (num<100)
+      return "#19bd35"
+    else if (num< 5000)
+      return "#bbbd19"
+    else if (num< 25000)
+      return "#F57803"
+    else if( num < 100000)
+      return "#D96A03"
+    else 
+      return "#e60000"
+    }
+  else if (this.state.display ==="recovered"){
+    if (num<100)
+      return "#e60000"
+    else if (num< 5000)
+      return "#D96A03"
+    else if (num< 25000)
+      return "#F57803"
+    else if( num < 100000)
+      return "#bbbd19"
+    else 
+      return "#19bd35"
+  }
+  else {
+  if (num<500)
+      return "#19bd35"
+    else if (num< 25000)
+      return "#bbbd19"
+    else if (num< 125000)
+      return "#F57803"
+    else if( num < 500000)
+      return "#D96A03"
+    else 
+      return "#e60000"}
 }
-// function to return data from the api called previously
+// function that checks the data passed, and then returns a value requested
 findCountry = (key) =>{
   var temp= -1
-  this.state.data.find(country=> {if (country.cCode === key)
-    temp=country.deaths
+  var usless =this.state.data.find(country=> {if (country.cCode === key)
+    temp=country[this.state.display]
   } )
   return temp
 } 
-// Style function to set color to each country based on the number of deaths, recovered, or infected people.
-newStyle = (feature) =>{
-  var found = this.findCountry(feature.get("iso_a2"))
-  var Color = "grey";
-  if (found > -1)
-  {
-    Color= this.getColor(found)
-  }
-  return new Style({
-      fill: new Fill({
-        color: Color
-      }),
-      stroke: new Stroke({
-        color: 'rgba(255,255,255,0.8)'
-      })
-    })
-}
-// Load map and the required information
-  componentDidMount(){
-    new Map({
-      target: 'map-container',
-      layers: [
-        new VectorLayer({
-          source: new VectorSource({
-            format: new GeoJSON(),
-            url: require("./map.geojson")
+/*
+Loads the map and the required information.
+Creates a map using the geojson file for country borders, fills the said borders with the determined colors,
+then saves the map, and the layer in the state to be used later.
+*/
+componentDidMount(){
+  var layer = new VectorLayer({
+    source: new VectorSource({
+      format: new GeoJSON(),
+      url: require("./map.geojson")
+    }),
+    style: (feature)=>{
+      var found = this.findCountry(feature.get("iso_a2"))
+      var Color = "black";
+      if (found > -1)
+      {
+        Color= this.getColor(found)
+      }
+      return new Style({
+          fill: new Fill({
+            color: Color
           }),
-          style: (feature)=>{
-            return this.newStyle(feature)
-          }
+          stroke: new Stroke({
+            color: 'rgba(255,255,255,0.8)'
+          })
         })
-      ],
-      view: new View({
-        center: [0, 0],
-        zoom:4
-      })
-    });
     }
-// Required method
+  })
+  var map = new Map({
+    target: 'map-container',
+      layers: [layer],
+    view: new View({
+      center: [0, 0],
+      zoom:4
+    },
+    )
+  })
+  this.setState({map: map, layer: layer})
+}
+/*
+Updates the map to show the desired data.
+First it checks if there is a change in the data requested, then it created a temporary storage for the previous iteration of map.
+In the temporary map, it removed the layer and adds a new one based on the new information requested.
+Changes the values of the map and the new layer
+*/
+componentDidUpdate(prevProps, prevState){
+  if(this.props.display!== prevProps.display){
+    var notMap = prevState.map
+    notMap.removeLayer(prevState.layer)
+    var layer = new VectorLayer({
+      source: new VectorSource({
+        format: new GeoJSON(),
+        url: require("./map.geojson")
+      }),
+      style: (feature)=>{
+        var found = this.findCountry(feature.get("iso_a2"))
+        var Color = "grey";
+        if (found > -1)
+        {
+          Color= this.getColor(found)
+        }
+        return new Style({
+            fill: new Fill({
+              color: Color
+            }),
+            stroke: new Stroke({
+              color: 'rgba(255,255,255,0.8)'
+            })
+          })
+      }
+  })
+    notMap.addLayer(layer)
+    this.setState({display: this.props.display, map:notMap, layer: layer})
+  }
+}
+// Constructor
+constructor(props){
+  super()
+  this.state = {data:props.data, display : props.display}
+}
+// Required method that generated a container for the map
   render() {
-    return (<div></div>)
+    return <div id = "map-container" style = {{height: 1000, width : 1000}}></div>
     }
 }
 
-export default wut
+export default Maperino

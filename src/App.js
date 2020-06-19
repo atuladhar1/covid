@@ -7,9 +7,12 @@ class App extends React.Component{
 
   constructor(){
     super()
-    this.state={initialized: false, countryData:{}, recov: false, dead : false,  infect:false}
+    this.state={initialized: false, countryData:{}, display:"recovered" }
+    this.handleClick = this.handleClick.bind(this)
   }
-
+  handleClick(a){
+    this.setState({display: a})
+  }
 // API call from source and save it in the state as an array for easies data sorting.
   componentDidMount() {
     fetch("https://api.covid19api.com/summary")
@@ -26,13 +29,9 @@ class App extends React.Component{
             cCode: country.CountryCode,
           }
           })
-      this.setState({initialized: true, countryData: final, display:"confirmed"})
+      this.setState({initialized: true, countryData: final})
     })
   }
-/*TODOs:
-    Map the heatmap to countries
-    Create a table do display the data
-*/
 
 // Every function is called here. Map-container created as a container for the map to be displayed. Everything else is just calls.
   render(){
@@ -40,8 +39,12 @@ class App extends React.Component{
     {
       return (
         <div>
-          <div id = "map-container" style = {{height: 1000, width : 1000}}></div>
-          <Map data = {this.state.countryData}/>
+        <div id= "button-container">
+        <button className="button" onClick={this.handleClick.bind(this,"recovered")}>Recoveries</button>
+        <button className="button" onClick={this.handleClick.bind(this,"deaths")}>Deaths</button>
+        <button className="button" onClick={this.handleClick.bind(this,"confirmed")}>Confirmed</button>
+        </div>
+          <Map data = {this.state.countryData} display ={this.state.display}/>
         </div>
       )
     }
