@@ -89,8 +89,8 @@ componentDidMount(){
     target: 'map-container',
       layers: [layer],
     view: new View({
-      center: [0, 0],
-      zoom:4
+      center: [39.828175, -98.5795],
+      zoom:2
     },
     )
   })
