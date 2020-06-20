@@ -42,7 +42,7 @@ class Table extends React.Component{
     return (<div><table id = "table">
         <thead id ="head">
         <tr><th onMouseUp= {this.handleClick.bind(this,"count")} value ="1" >Country Name</th>
-        <th onMouseUp= {this.handleClick.bind(this,"confirmed")}>Comfirmed</th>
+        <th onMouseUp= {this.handleClick.bind(this,"confirmed")}>Confirmed</th>
         <th onMouseUp= {this.handleClick.bind(this,"deaths")}>Deaths</th>
         <th onMouseUp= {this.handleClick.bind(this,"recovered")}>Recovered</th></tr></thead>
         <tbody id= "body">
