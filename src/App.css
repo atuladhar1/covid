@@ -12,9 +12,17 @@
 #button-container{
     margin: 0;
     text-align: center;
-    background: white;
+    background: rgba(255, 255, 255, 0.144);
 }
 
 .button{
-    margin: 0 20px;
+    margin: 0px 20px;
+    padding: 5px;
+    border: 0px solid black;
+    border-radius: 4px;
+}
+
+.button:hover{
+    background-color: green;
+    color: whitesmoke;
 }
