@@ -56,7 +56,7 @@ class App extends React.Component{
       )
     }
     else {
-      return <h1>wut</h1>
+      return <h1>Loading. . .</h1>
     }
     }
 }

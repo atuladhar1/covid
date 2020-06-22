@@ -11,17 +11,19 @@
     color: rgb(32, 26, 26);
     position: sticky;
     top: 0;
-    background-color: #5db4eb ;
+    background-color: #a89e9e ;
     border: 1px solid #366583;
     font-size: 18px;
+    color: rgb(77, 70, 70);
 }
 
 td{
     font-size: 17px;
-    border: 1px solid #29815f;
-    background-color: #0b915d;
-    font-family:'Roboto Mono', monospace; ;
+    border: 1px solid #0c0c0c;
+    background-color: #696969;
+    font-family:'Roboto Mono', monospace;
+    color: rgba(48, 43, 43, 0.842);
 }
-#tbody::-webkit-scrollbar {
+#table::-webkit-scrollbar {
     display: none;
   }
